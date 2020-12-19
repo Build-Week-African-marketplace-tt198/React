@@ -3,7 +3,6 @@ import * as yup from "yup";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
-
 export default function SignIn() {
   const [formState, setFormState] = useState({
     email: "",
@@ -96,31 +95,26 @@ export default function SignIn() {
     <form onSubmit={formSubmit}>
       {serverError ? <p className="error">{serverError}</p> : null}
 
-        <input
-          id="email"
-          type="text"
-          name="email"
-          value={formState.email}
-          placeholder="Email"
-          onChange={inputChange}
-          data-cy="email"
-        />
-        {errors.email.length > 0 ? (
-          <p className="error">{errors.email}</p>
-        ) : null}
+      <input
+        id="email"
+        type="text"
+        name="email"
+        value={formState.email}
+        placeholder="Email"
+        onChange={inputChange}
+        data-cy="email"
+      />
+      {errors.email.length > 0 ? <p className="error">{errors.email}</p> : null}
 
-     
-        
-        <input
-          type="string"
-          id="password"
-          name="password"
-          value={formState.password}
-          placeholder="Password"
-          onChange={inputChange}
-          data-cy="password"
-        />
-   
+      <input
+        type="string"
+        id="password"
+        name="password"
+        value={formState.password}
+        placeholder="Password"
+        onChange={inputChange}
+        data-cy="password"
+      />
 
       <button disabled={buttonDisabled} type="submit">
         Submit

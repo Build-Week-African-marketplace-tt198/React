@@ -2,7 +2,7 @@ import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
 import axios from "axios";
-import "./ItemEntry.css";
+// import "./ItemEntry.css";
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
 import { useHistory } from "react-router-dom";

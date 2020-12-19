@@ -1,37 +1,29 @@
-import React from "react";
-import Registration from "./components/Registration";
-import "./App.css";
-import Login from "./components/Login";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
-import Navigation from "./components/Navigation";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import './App.css';
+import ItemEntry from './components/ItemEntry';
+import SignIn from './components/Login';
+import Registration from './components/Registration';
+import PrivateRoute from './components/PrivateRoute';
+import AllItems from './components/AllItems';
+import UserItems from './components/UserItems';
+import Navigation from'./components/Navigation';
 
 function App() {
-  const StyledLink = styled(Link)`
-    width: 100px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    float: right;
-    color: black;
-  `;
-  return (
-    <div className="App">
-      <Router>
-        <div className="header-one">
-          <Navigation />
-        </div>
-
-        <div className="welcome">
-          <h4>Welcome! Please sign in to get started.</h4>
-        </div>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/registration" component={Registration} />
-        </Switch>
-      </Router>
-    </div>
-  );
+	return (
+		<div className='App'>
+			{/* <h1 style={{ margin: '0 auto' }}>African Marketplace</h1> */}
+			<Navigation/>
+			<Switch>
+				<Route exact path='/' component={SignIn} />
+				<Route path='/registration' component={Registration} />
+				<Route path='/home' component={AllItems} />
+				<Route path='/user' component={UserItems} />
+				<Route path='/sell' component={ItemEntry} />
+			</Switch>
+		</div>
+	);
 }
 
 export default App;
+
