@@ -1,42 +1,53 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { getUserItems, deleteItem } from '../actions/itemActions';
-import EditItem from './EditItem';
+import ItemEdit from './ItemEdit';
+import './itemcard.css';
 
 function UserItems(props) {
 	const [editing, setEditing] = useState(false);
 	const [itemToEdit, setItemToEdit] = useState({});
+
 	useEffect(() => {
 		props.getUserItems(props.id);
-	}, [props.id]);
+	}, []);
 
 	const handleEditing = (item) => {
 		setEditing(true);
 		setItemToEdit(item);
 	};
 
-	const handleDelete = (id) => {
-		props.deleteItem(id);
+	const handleDelete = (itemId, userId) => {
+		props.deleteItem(itemId, userId);
 	};
 
+	if (props.loading) {
+		return <span className='loading'>Loading...</span>;
+	}
+
 	return (
-		<div>
+		<div className='item-card-container'>
+			{' '}
+			{/* Added classname to this div -sam */}
 			{props.items.map((item) => {
-				console.log(item);
 				return (
-					<div key={item.id}>
-						<span>{item.product}</span>
+					<div key={item.id} className='item-card'>
+						<h3>Item: {item.product}</h3>
 						<br />
-						<span>{item.description}</span>
+						<p>Description: {item.description}</p>
 						<br />
-						<span>${item.price}</span>
+						{/* not using so removed --sam  <p>Category: {item.category}</p> */}
+						<br />
+						<span>Price: ${item.price}</span>
 						<br />
 						<button onClick={() => handleEditing(item)}>Edit Item</button>
-						<button onClick={() => handleDelete(item.id)}>Delete Item</button>
+						<button onClick={() => handleDelete(item.id, props.id)}>
+							Delete Item
+						</button>
 					</div>
 				);
 			})}
-			{editing && <EditItem item={itemToEdit} setEditing={setEditing} />}
+			{editing && <ItemEdit item={itemToEdit} setEditing={setEditing} />}
 		</div>
 	);
 }
@@ -46,6 +57,7 @@ const mapStateToProps = (state) => {
 	return {
 		items: state.item.userItems,
 		id: state.user.id,
+		loading: state.item.loading,
 	};
 };
 

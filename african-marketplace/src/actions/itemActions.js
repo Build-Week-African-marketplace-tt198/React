@@ -44,7 +44,7 @@ export const getAllItems = () => (dispatch) => {
 	dispatch({ type: GET_ALL_ITEMS_START });
 	// console.log('getallitems start');
 	axiosWithAuth()
-		.get('/items')
+		.get('https://african-marketplace-back-end.herokuapp.com/api/items')
 		.then((res) => {
 			dispatch({ type: GET_ALL_ITEMS_SUCCESS, payload: res.data.data });
 			// console.log(res.data.data);

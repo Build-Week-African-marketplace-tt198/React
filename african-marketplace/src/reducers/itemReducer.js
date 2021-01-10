@@ -19,7 +19,6 @@ import {
 const initialState = {
 	loading: false,
 	error: '',
-	reloadItems: 'false',
 	allItems: [],
 	userItems: [],
 };
@@ -30,27 +29,33 @@ export const itemReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: true,
+				error: '',
 			};
 		case ADD_ITEM_SUCCESS:
 			return {
 				...state,
 				loading: false,
+				error: '',
+				userItems: action.payload,
 			};
 		case ADD_ITEM_ERROR:
 			return {
 				...state,
 				loading: false,
+				error: action.payload,
 			};
 		case GET_ALL_ITEMS_START:
 			return {
 				...state,
 				loading: true,
+				error: '',
 			};
 		case GET_ALL_ITEMS_SUCCESS:
 			return {
 				...state,
 				allItems: action.payload,
 				loading: false,
+				error: '',
 			};
 		case GET_ALL_ITEMS_ERROR:
 			return {
@@ -62,12 +67,14 @@ export const itemReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: true,
+				error: '',
 			};
 		case GET_USER_ITEMS_SUCCESS:
 			return {
 				...state,
 				loading: false,
 				userItems: action.payload,
+				error: '',
 			};
 		case GET_USER_ITEMS_ERROR:
 			return {
@@ -79,19 +86,42 @@ export const itemReducer = (state = initialState, action) => {
 			return {
 				...state,
 				loading: true,
+				error: '',
 			};
 		case DELETE_ITEM_SUCCESS:
 			return {
 				...state,
 				loading: false,
+				error: '',
+				userItems: action.payload,
 			};
-		case DELETE_ITEM_ERROR: {
+		case DELETE_ITEM_ERROR:
 			return {
 				...state,
 				loading: false,
+				error: action.payload,
 			};
-		}
+		case UPDATE_ITEM_START:
+			return {
+				...state,
+				loading: true,
+				error: '',
+			};
+		case UPDATE_ITEM_SUCCESS:
+			return {
+				...state,
+				loading: false,
+				error: '',
+				userItems: action.payload,
+			};
+		case UPDATE_ITEM_ERROR:
+			return {
+				...state,
+				loading: false,
+				error: action.payload,
+			};
 		default:
 			return state;
 	}
 };
+

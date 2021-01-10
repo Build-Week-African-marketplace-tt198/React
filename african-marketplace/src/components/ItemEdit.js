@@ -1,10 +1,9 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-// import axios from 'axios';
-// import './ItemEntry.css';
+import './ItemEntry.css';
 import { connect } from 'react-redux';
-import { updateItem } from '../actions/itemActions';
+import { updateItem, getUserItems } from '../actions/itemActions';
 import { useHistory } from 'react-router-dom';
 
 //blank object for item data
@@ -42,7 +41,7 @@ const ItemEdit = (props) => {
 				.required()
 				.label('Description')
 				.min(2, 'must be at least 2 characters'),
-			category: yup.number().oneOf([1, 2, 3]).required(),
+			category: yup.number().oneOf([34, 35, 36, 37, 38]).required(),
 			// location: yup
 			// 	.string()
 			// 	.min(3, 'Must be at least 3 characters.')
@@ -51,6 +50,7 @@ const ItemEdit = (props) => {
 		// ⏬ formik automagically added form data values to obj, 'values'
 		onSubmit: async (values) => {
 			await props.updateItem(values, props.item.id, props.id);
+			await props.getUserItems(props.id);
 			history.push('/user');
 			props.setEditing(false);
 			/* AXIOS */
@@ -64,6 +64,10 @@ const ItemEdit = (props) => {
 			// 	});
 		},
 	});
+
+	if (props.loading) {
+		return <span className='loading'>Loading...</span>;
+	}
 
 	return (
 		<section>
@@ -113,9 +117,11 @@ const ItemEdit = (props) => {
 					onBlur={formik.handleBlur}
 				>
 					<option value=''>-- choose a category --</option>
-					<option value={1}>Animal Product</option>
-					<option value={2}>Bean</option>
-					<option value={3}>Cereal</option>
+					<option value={34}>Baskets</option>
+					<option value={35}>Coffee</option>
+					<option value={36}>Beans</option>
+					<option value={37}>Animal Product</option>
+					<option value={38}>Other</option>
 				</select>
 				{formik.errors.category && formik.errors.category ? (
 					<span className='errorMsg'>{formik.errors.category}</span>
@@ -170,7 +176,8 @@ const ItemEdit = (props) => {
 const mapStateToProps = (state) => {
 	return {
 		id: state.user.id,
+		loading: state.item.loading,
 	};
 };
 
-export default connect(mapStateToProps, { updateItem })(ItemEdit);
+export default connect(mapStateToProps, { updateItem, getUserItems })(ItemEdit);
