@@ -9,20 +9,11 @@ import { connect } from 'react-redux';
 function AllUsers(props) {
 	const [userState, setUserState] = useState([]);
 	const users = props.users;
-	// useEffect(() => {
-	// 	axios
-	// 		.get('https://reqres.in/api/users?page=2api/users')
-	// 		.then((res) => {
-	// 			console.log('axios success!', res.data.data);
-	// 			setUserState(res.data.data);
-	// 		})
-	// 		.catch((err) => console.log('axios error', err));
-	// }, []);
+	
 
 	useEffect(() => {
 		props.getAllUsers();
-		// setUserState(users);
-		// console.log(users, 'users');
+		
 	}, []);
 
 	if (props.loading) {
@@ -31,7 +22,7 @@ function AllUsers(props) {
 
 	return (
 		<section>
-			{/* <Route exact path='/users'> */}
+		
 			<h2>All Sellers</h2>
 			<p>
 				Below are all our registered small business owners. Please click on
@@ -50,7 +41,7 @@ function AllUsers(props) {
 					})}
 				</section>
 				<section className='user-card-box'>
-					{/* </Route> */}
+				
 					<Route path='/users/:id'>
 						<UserCard users={users} />
 					</Route>

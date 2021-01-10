@@ -11,7 +11,7 @@ function DisplayAllItems(props) {
 	return (
 		<div className='item-card-container'>
 			{' '}
-			{/* added classname to div --sam */}
+		
 			{props.items.map((item) => {
 				return (
 					<div key={item.id} className='item-card'>
@@ -19,8 +19,7 @@ function DisplayAllItems(props) {
 						<br />
 						<p>Description: {item.description}</p>
 						<br />
-						{/* <p>Category: {item.category}</p>
-						<br /> */}
+					
 						<span>Price: ${item.price}</span>
 						<br />
 						<br />

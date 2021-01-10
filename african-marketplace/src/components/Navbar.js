@@ -15,7 +15,7 @@ function Navigation(props) {
 
 	return (
 		<div className='nav-header'>
-			{/* <p className='main-heading'>African Marketplace</p> commented out -sam */}
+			
 			{props.username && (
 				<ul id='nav'>
 					<li>
@@ -24,9 +24,7 @@ function Navigation(props) {
 					<li>
 						<Link to='/user'>User's Items</Link>
 					</li>
-					{/* <li>
-						<Link to='/registration'>Register</Link>
-					</li> */}
+				
 					<li>
 						<Link to='/sell'>Add Item</Link>
 					</li>

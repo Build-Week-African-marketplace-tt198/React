@@ -1,24 +1,24 @@
 import React from 'react';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-// import axios from 'axios';
+
 import './ItemEntry.css';
 import { connect } from 'react-redux';
 import { addItem, getUserItems } from '../actions/itemActions';
 import { useHistory } from 'react-router-dom';
 
-//blank object for item data
+
 const blankState = {
 	name: '',
 	price: '',
 	description: '',
 	category: '',
-	// location: '',
+
 };
 
 const ItemEntry = (props) => {
 	const history = useHistory();
-	//form state and yup validation
+
 	const formik = useFormik({
 		initialValues: { ...blankState },
 		validationSchema: yup.object({
@@ -39,19 +39,11 @@ const ItemEntry = (props) => {
 				.min(2, 'must be at least 2 characters'),
 			category: yup.number().oneOf([34, 35, 36, 37, 38]).required(),
 		}),
-		// ⏬ formik automagically added form data values to obj, 'values'
+		
 		onSubmit: (values) => {
 			props.addItem(values, props.id);
 			history.push('/user');
-			/* AXIOS */
-			// axios
-			// 	.post('https://reqres.in/api/users', values)
-			// 	.then((res) => {
-			// 		console.log('🌟 Data was posted!', res.data);
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log('⛔ An error occurred!', err);
-			// 	});
+		
 		},
 	});
 
@@ -133,20 +125,7 @@ const ItemEntry = (props) => {
 				) : null}
 				<br />
 
-				{/* <label htmlFor='location'>Location: </label>
-				<input
-					id='location'
-					name='location'
-					type='text'
-					placeholder='KEN'
-					onChange={formik.handleChange}
-					value={formik.values.location}
-					onBlur={formik.handleBlur}
-				/>
-				{formik.errors.location && formik.errors.location ? (
-					<span className='errorMsg'>{formik.errors.location}</span>
-				) : null}
-				<br /> */}
+				
 
 				<button
 					type='submit'

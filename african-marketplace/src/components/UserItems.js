@@ -28,7 +28,7 @@ function UserItems(props) {
 	return (
 		<div className='item-card-container'>
 			{' '}
-			{/* Added classname to this div -sam */}
+		
 			{props.items.map((item) => {
 				return (
 					<div key={item.id} className='item-card'>
@@ -36,7 +36,7 @@ function UserItems(props) {
 						<br />
 						<p>Description: {item.description}</p>
 						<br />
-						{/* not using so removed --sam  <p>Category: {item.category}</p> */}
+						
 						<br />
 						<span>Price: ${item.price}</span>
 						<br />
@@ -53,7 +53,7 @@ function UserItems(props) {
 }
 
 const mapStateToProps = (state) => {
-	// console.log(state);
+	
 	return {
 		items: state.item.userItems,
 		id: state.user.id,
