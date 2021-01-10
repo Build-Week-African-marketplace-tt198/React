@@ -1,37 +1,38 @@
-import React from "react";
-import Registration from "./components/Registration";
-import "./App.css";
-import Login from "./components/Login";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
-import styled from "styled-components";
-import Navigation from "./components/Navigation";
+import React from 'react';
+import { Switch, Route } from 'react-router-dom';
+import ItemEntry from './components/ItemEntry';
+import SignIn from './components/SignIn';
+import Registration from './components/Registration';
+import PrivateRoute from './components/PrivateRoute';
+import DisplayAllItems from './components/DisplayAllItems';
+import UserItems from './components/UserItems';
+import Navigation from './components/Navbar';
+import AllUsers from './components/AllUsers';
 
 function App() {
-  const StyledLink = styled(Link)`
-    width: 100px;
-    text-decoration: none;
-    display: flex;
-    flex-direction: row;
-    float: right;
-    color: black;
-  `;
-  return (
-    <div className="App">
-      <Router>
-        <div className="header-one">
-          <Navigation />
-        </div>
-
-        <div className="welcome">
-          <h4>Welcome! Please sign in to get started.</h4>
-        </div>
-        <Switch>
-          <Route exact path="/" component={Login} />
-          <Route exact path="/registration" component={Registration} />
-        </Switch>
-      </Router>
-    </div>
-  );
+	return (
+		<div className='App'>
+			<header className='main-app-header'>
+				<h1>African Marketplace</h1>
+				<div className='img-container'></div>
+			</header>
+			<Navigation />
+			<div className='main-app-container'>
+				<Switch>
+					<Route exact path='/' component={SignIn} />
+					<Route path='/registration' component={Registration} />
+					<PrivateRoute path='/home' component={DisplayAllItems} />
+					<PrivateRoute path='/user' component={UserItems} />
+					<PrivateRoute path='/sell' component={ItemEntry} />
+					<PrivateRoute path='/users' component={AllUsers} />
+				</Switch>
+				</div>
+				<footer>
+					<p>Our Mission: Empowering Small Businesses.</p>
+					<p>&copy; 2021 Track Team 198 </p>
+				</footer>
+		</div>
+	);
 }
 
 export default App;

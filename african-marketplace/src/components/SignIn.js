@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import * as yup from 'yup';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { register } from '../actions/userActions';
+import { logIn } from '../actions/userActions';
 import { useHistory } from 'react-router-dom';
 
-function Form(props) {
+function SignIn(props) {
 	const history = useHistory();
 
 	const [formState, setFormState] = useState({
 		username: '',
-		password: '',
-		location: '',	
+    password: '',
+    department: ''
 	});
 
 	const [buttonDisabled, setButtonDisabled] = useState(true);
 
 	const [errors, setErrors] = useState({
 		username: '',
-		password: '',
-		location: '',	
+    password: '', 
+    department: ''
 	});
 
 	const validateChange = (e) => {
@@ -41,16 +42,17 @@ function Form(props) {
 			});
 	};
 
-	const formSubmit = async (e) => {
+	const formSubmit = (e) => {
 		e.preventDefault();
 		console.log('form submitted!');
-		await props.register({
-			username: formState.username,
-			password: formState.password,
-			location: formState.location,
-		});
-		history.push('/home');
+		props.logIn(formState);
 	};
+
+	useEffect(() => {
+		if (props.username) {
+			history.push('/home');
+		}
+	}, []);
 
 	const inputChange = (e) => {
 		e.persist();
@@ -66,13 +68,9 @@ function Form(props) {
 	};
 
 	const formSchema = yup.object().shape({
-		
-		username: yup.string().required('Please choose a username'),
-
-		password: yup.string().min(0).max(128),
-		
-		location: yup.string().required('Please Include Location'),
-
+		username: yup.string().required('Must include a username'),
+    password: yup.string().required('Password is required'),
+    department: yup.string().required('Must include department: Buyer or Seller')
 	});
 
 	useEffect(() => {
@@ -82,14 +80,13 @@ function Form(props) {
 	}, [formState, formSchema]);
 
 	if (props.loading) {
-		console.log('loading');
 		return <span className='loading'>Loading...</span>;
 	}
 
 	return (
 		<form onSubmit={formSubmit}>
-		
-			<p>Welcome! Please fill out the following information to continue.</p>
+			<h2>Welcome back!</h2>
+			<p>Please login to continue.</p>
 			{props.serverError ? <p className='error'>{props.serverError}</p> : null}
 
 			<input
@@ -110,30 +107,25 @@ function Form(props) {
 				id='password'
 				name='password'
 				value={formState.password}
-				placeholder='password'
+				placeholder='Password'
 				onChange={inputChange}
 				data-cy='password'
 			/>
-			{errors.password.length > 0 ? (
-				<p className='error'>{errors.password}</p>
-			) : null}
 
-			<input
-				type='text'
-				id='location'
-				name='location'
-				value={formState.location}
-				placeholder='Location'
+<input
+				type='department'
+				id='department'
+				name='department'
+				value={formState.department}
+				placeholder='Department'
 				onChange={inputChange}
-				data-cy='location'
+				data-cy='department'
 			/>
-			{errors.location.length > 0 ? (
-				<p className='error'>{errors.location}</p>
-			) : null}
 
 			<button disabled={buttonDisabled} type='submit'>
 				Submit
 			</button>
+			<Link to='/registration'>Don't have an account? Please register</Link>
 		</form>
 	);
 }
@@ -142,7 +134,8 @@ const mapStateToProps = (state) => {
 	return {
 		serverError: state.user.error,
 		loading: state.user.loading,
+		username: state.user.username,
 	};
 };
 
-export default connect(mapStateToProps, { register })(Form);
+export default connect(mapStateToProps, { logIn })(SignIn);

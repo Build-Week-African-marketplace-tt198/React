@@ -1,0 +1,50 @@
+h3 {
+	box-sizing: border-box;
+	padding: 5px;
+	margin:0;
+	width:100%;
+	background: burlywood;
+	color: darkgreen;
+	text-transform: capitalize;
+}
+
+.users-container {
+	padding: 0;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	max-width: 900px;
+
+}
+
+.user-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px;
+	margin: 0 auto 15px auto;
+	width: 400px;
+	border: 1px solid paleturquoise;
+	background: floralwhite;
+	border-radius: 5px;
+}
+
+
+
+.user-list p a {
+	padding: 5px;
+	font-weight: bold;
+	text-decoration: none;
+	color: paleturquoise;
+}
+
+.user-list p a:hover {
+	background: #1a2e40;
+	color: floralwhite;
+}
+
+.user-list p a:hover::after {
+	content: ' ➡';
+}
